@@ -1,0 +1,165 @@
+
+
+"C-c '" to edit code   
+"C-c C-," to add code blok
+
+* Small modifications
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-message t)
+
+  ;; For VcXsrv to open Emacs appropriate size
+  (setq default-frame-alist (append (list '(width . 90) '(height . 20))))
+
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (set-fringe-mode 10)
+
+  ;; kills current buffer without confirmation
+  (global-set-key (kbd "C-x k") 'kill-current-buffer)
+
+  ;; font
+  (set-face-attribute 'default nil :font "Fira Code Retina" :height 200)
+
+  ;; number lines
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+
+  ;; place auto-save files in one directory
+  (setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/auto-save-list/"
+							   user-emacs-directory))))
+
+  ;; tab-bar-mode creates new *scratch* tab
+  (tab-bar-mode)
+  (setq tab-bar-new-tab-choice "*scratch*")
+
+#+END_SRC
+
+* Counsel 
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :bind (("M-x" . counsel-M-x)
+	   ("C-x b" . counsel-ibuffer)
+	   ("C-x C-f" . counsel-find-file)
+	   :map minibuffer-local-map
+	   ("C-r" . 'counsel-minibuffer-history)))
+
+#+END_SRC
+
+* Ivy
+#+BEGIN_SRC emacs-lisp
+
+  (use-package ivy
+    :diminish
+    :bind (("C-s" . swiper)
+	   :map ivy-minibuffer-map
+	   ("C-l" . ivy-alt-done)
+	   ("C-j" . ivy-next-line)
+	   ("C-k" . ivy-previous-line)
+	   :map ivy-switch-buffer-map
+	   ("C-k" . ivy-previous-line)
+	   ("C-l" . ivy-done)
+	   ("C-d" . ivy-switch-buffer-kill)
+	   :map ivy-reverse-i-search-map
+	   ("C-k" . ivy-previous-line)
+	   ("C-d" . ivy-reverse-i-search-kill))
+    :config
+    (ivy-mode 1))
+
+  (use-package ivy-rich
+    :init (ivy-rich-mode 1))
+
+#+END_SRC
+
+* Company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :config
+    (setq company-idle-delay 0.3)
+    (global-company-mode t))
+
+   (setq company-minimum-prefix-length 3)
+#+END_SRC
+
+* Org-mode
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :hook (org-mode . org-bullets-mode))
+#+END_SRC
+
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :init (global-flycheck-mode))
+  (setq flycheck-check-syntax-automatically '(save mode-enable))
+#+END_SRC
+
+* Which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :init (which-key-mode)
+    :diminish which-key-mode
+    :config (setq which-key-idle-delay 0.3))
+#+END_SRC
+* Try
+#+BEGIN_SRC emacs-lisp
+(use-package try)
+#+END_SRC
+* Swiper
+#+BEGIN_SRC emacs-lisp
+(use-package swiper)
+#+END_SRC
+** Ivy-mode
+   #+begin_src emacs-lisp
+     (use-package avy
+       :bind ("M-s" . avy-goto-char))
+   #+end_src
+* Beacon
+#+BEGIN_SRC emacs-lisp
+(use-package beacon
+  :init (beacon-mode 1))
+#+END_SRC
+* Rainbow-delimiters
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+  (use-package smartparens
+    :hook (prog-mode . smartparens-mode))
+
+#+END_SRC
+* Popup-kill-ring
+#+BEGIN_SRC emacs-lisp
+  (use-package popup-kill-ring
+    :bind ("M-y" . popup-kill-ring))
+#+END_SRC
+
+* Dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :config
+    (dashboard-setup-startup-hook))
+
+    ;; Set dashboard banner
+    (setq dashboard-startup-banner 3)
+#+END_SRC
+
+
+* Haskell
+#+begin_src emacs-lisp
+    (use-package haskell-mode)
+
+    (use-package flycheck-haskell
+      :hook (haskell-mode . flycheck-haskell-setup))
+
+  (use-package ghci-completion
+    :hook (inferior-haskell-mode . turn-on-ghci-completion))
+
+    ;(use-package company-ghci
+     ; :hook (haskell-mode . company-mode))
+
+  ;  (push 'company-ghci company-backends)
+
+    ;;(add-hook 'haskell-mode-hook 'company-mode)
+#+end_src
+* gggg 
+-- gg
